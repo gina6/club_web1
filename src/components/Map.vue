@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
+import mapboxgl from "mapbox-gl"; 
 
 export default {
   name: "Map",
