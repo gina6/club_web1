@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <h1>cLUb Map</h1>
-    <div ref="container" class="map"></div>
-  </div>
+  <div ref="container" class="map"></div>
 </template>
 
 <script>
@@ -30,5 +27,6 @@ export default {
 <style scoped>
 .map{
     width: 100%;
+    height: 50%;
 }
 </style>
