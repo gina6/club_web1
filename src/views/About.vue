@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Map from '../components/Map.vue'
+import Map from '../components/Map_track.vue'
 
 export default {
   name: "About",
