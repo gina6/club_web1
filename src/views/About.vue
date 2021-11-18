@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Map from '../components/Map_track.vue'
+import Map from '../components/Map.vue'
 
 export default {
   name: "About",
@@ -22,6 +22,6 @@ export default {
 <style scoped>
 .map{
   width: 100vw;
-  height: 100vh;
+  height: 50vh;
 }
 </style>

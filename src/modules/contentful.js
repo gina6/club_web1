@@ -27,6 +27,7 @@ class Contentful {
 
     }
 
+
 }
 
 export default new Contentful();

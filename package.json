@@ -11,6 +11,8 @@
     "contentful": "^9.1.4",
     "core-js": "^3.6.5",
     "mapbox-gl": "^2.6.0",
+    "three": "^0.134.0",
+    "threebox-plugin": "^2.2.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.12"
   },
