@@ -14,7 +14,7 @@ export default {
     new mapboxgl.Map({
       container: this.$refs.container, // container ID
       style: "mapbox://styles/giucos/ckvtk1er6234714m35zxwp79m", // style URL
-      center: [8.541508, 47.377493], // starting position [lng, lat]
+      center: [8.309770447369441, 47.050188260908826],
       zoom: 9, // starting zoom
     });
   },
