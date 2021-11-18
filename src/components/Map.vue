@@ -8,10 +8,14 @@ import mapboxgl from "mapbox-gl";
 import { Threebox } from "threebox-plugin";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import contentful from "@/modules/contentful.js";
+
 
 export default {
   name: "Map",
   mounted: async function () {
+    let clubs = await contentful.getCommutes();
+    console.log(clubs)
     mapboxgl.accessToken =
       "pk.eyJ1IjoiZGlnaXRhbGlkZWF0aW9udmFuZWIiLCJhIjoiY2t2dGk1aGdmMngxbjJ4b3VuenF1ZHBzbiJ9.EQOJw9sGg2zuIg4LX8e2nA";
     const map = new mapboxgl.Map({
@@ -34,24 +38,12 @@ export default {
           renderingMode: "3d",
 
           onAdd: function () {
-            // const options = {
-            //   obj: "../assets/GLTF-Objects/cube.gltf",
-            //   type: "gtlf",
-            //   scale: 20,
-            //   units: "meters",
-            //   rotations: { x: 90, y: 0, z: 0 },
-            // };
-
-            // window.tb.loadObj(options, function (model) {
-            //   let cube = model.setCoords([8.308, 47.05]);
-            //   window.tb.add(cube);
-            // });
 
             const scene = new THREE.Scene();
             const loader = new GLTFLoader();
 
             loader.load(
-              "/three-assets/RobotExpressive.glb",
+              clubs[0].fields.object.fields.file.url,
               function (gltf) {
                 scene.add(gltf.scene);
               },
