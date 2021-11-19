@@ -65,6 +65,5 @@ export default {
 <style scoped>
 .map {
   width: 100%;
-  height: 50%;
 }
 </style>
