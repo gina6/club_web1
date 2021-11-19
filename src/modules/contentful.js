@@ -9,7 +9,7 @@ class Contentful {
         })
     }
 
-    async getCommutes() {
+    async getClubs() {
         let result = await this.client
             .getEntries({
                 content_type: "club"
