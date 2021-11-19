@@ -17,7 +17,7 @@
 import Club from "@/components/Club.vue";
 import { createClient } from "contentful";
 export default {
-  name: "Home",
+  name: "About",
   components: {
     Club,
   },

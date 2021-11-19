@@ -8,7 +8,7 @@
 import Map from '../components/Map_track.vue'
 
 export default {
-  name: "About",
+  name: "Home",
   components: {
         Map,
     }
