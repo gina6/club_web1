@@ -10,6 +10,7 @@
 </template>
 
 
+
 <style>
 @import url("https://fonts.googleapis.com/css?family=Orbitron");
 
@@ -40,6 +41,7 @@
   display: flex;
   flex-direction: column;
   background-color: var(--bg-black);
+  width: 100vw;
 }
 
 #header {

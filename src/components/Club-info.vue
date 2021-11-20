@@ -1,28 +1,36 @@
 <template>
-  <v-row align="center" justify="center">
-    <v-card height="300" width="250">
-      <v-row justify="center">
-        <v-btn
-          color="orange lighten-2"
-          class="mt-12"
-          @click="overlay = !overlay"
-        >
-          Show Overlay
-        </v-btn>
-
-        <v-overlay :absolute="absolute" :opacity="opacity" :value="overlay">
-          <v-btn color="orange lighten-2" @click="overlay = false">
-            Hide Overlay
-          </v-btn>
-        </v-overlay>
-      </v-row>
-    </v-card>
-  </v-row>
+  <div class="club">
+    <h1>{{name}}</h1>
+    <div class="info">
+      <h2>Entry</h2>
+      <p>{{entry}}</p>
+    </div>
+    <div class="info">
+      <h2>Opening Hours</h2>
+      <p>{{openings}}</p>
+    </div>
+    <div class="infos">
+      <h2>Distance from Trainstation</h2>
+      <p>{{distance}} km</p>
+    </div>
+    <div class="info">
+      <h2>Music</h2>
+      <p>{{music}}</p>
+    </div>
+    <div class="info">
+      <h2>Events</h2>
+      <p>{{events}}</p>
+    </div>
+    <div class="info">
+      <h2>Insider</h2>
+      <p>{{insider}}</p>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Club",
+  name: 'Club',
   props: {
     name: String,
     entry: String,
@@ -30,18 +38,29 @@ export default {
     distance: Object,
     music: String,
     events: String,
-    insider: String,
-  },
-  data: () => ({
-    absolute: true,
-    opacity: 1,
-    overlay: false,
-  }),
-};
+    insider: String
+  }
+}
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  background-color: white;
+
+.club {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 5% 0 5%;
+  text-align: left;
 }
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 40px;
+}
+
 </style>

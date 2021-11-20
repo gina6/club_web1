@@ -1,15 +1,19 @@
 <template>
   <div>
-       <ul id="array-rendering">
-      <p v-for="c in clubs" :key="c">
+    <button v-on:click="toggle">INSELI</button>
+    <div id="array-rendering" v-show="clicked">
+      <div v-for="c in clubs" :key="c">
         <Club
           :name="c.fields.name"
           :entry="c.fields.entry"
+          :openings="c.fields.openings"
+          :distance="c.fields.distance"
+          :music="c.fields.music"
+          :events="c.fields.events"
+          :insider="c.fields.insider"
         />
-      </p>
-    </ul>
-
-
+      </div>
+       </div>
   </div>
 </template>
 
@@ -24,6 +28,7 @@ export default {
   data: function () {
     return {
       clubs: [],
+      clicked: false,
     };
   },
   created: function () {
@@ -39,11 +44,24 @@ export default {
       console.log(this.clubs);
     });
   },
+  methods: {
+    toggle: function() {
+      if(this.clicked){
+        this.clicked = false;
+      } else {
+        this.clicked = true;
+      }
+    }
+
+  }
 };
 </script>
 
 <style scoped>
-li{
-    list-style-type: none;
+
+#array-rendering{
+  background: url('../assets/gradient-bg.svg') no-repeat;
+  background-attachment: fixed;
+
 }
 </style>
