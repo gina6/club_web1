@@ -1,19 +1,33 @@
 <template>
   <div>
-    <button v-on:click="toggle">INSELI</button>
-    <div id="array-rendering" v-show="clicked">
-      <div v-for="c in clubs" :key="c">
+    <button v-on:click="toggle('inseli')">INSELI</button>
+    <button v-on:click="toggle('rok')">ROK</button>
+    <div id="array-rendering" v-show="inseli">
+      <div v-bind:key="clubs">
         <Club
-          :name="c.fields.name"
-          :entry="c.fields.entry"
-          :openings="c.fields.openings"
-          :distance="c.fields.distance"
-          :music="c.fields.music"
-          :events="c.fields.events"
-          :insider="c.fields.insider"
+          :name="clubs[0].fields.name"
+          :entry="clubs[0].fields.entry"
+          :openings="clubs[0].fields.openings"
+          :distance="clubs[0].fields.distance"
+          :music="clubs[0].fields.music"
+          :events="clubs[0].fields.events"
+          :insider="clubs[0].fields.insider"
         />
       </div>
-       </div>
+    </div>
+    <div id="array-rendering" v-show="rok">
+      <div v-bind:key="clubs">
+        <Club
+          :name="clubs[1].fields.name"
+          :entry="clubs[1].fields.entry"
+          :openings="clubs[1].fields.openings"
+          :distance="clubs[1].fields.distance"
+          :music="clubs[1].fields.music"
+          :events="clubs[1].fields.events"
+          :insider="clubs[1].fields.insider"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,7 +42,8 @@ export default {
   data: function () {
     return {
       clubs: [],
-      clicked: false,
+      inseli: false,
+      rok: false,
     };
   },
   created: function () {
@@ -45,23 +60,23 @@ export default {
     });
   },
   methods: {
-    toggle: function() {
-      if(this.clicked){
-        this.clicked = false;
-      } else {
-        this.clicked = true;
-      }
-    }
-
-  }
+    toggle: function (message) {
+      console.log(message);
+      if (message == 'inseli') {
+        this.rok = false;
+        this.inseli = true;
+      } else if (message == 'rok') {
+        this.inseli = false;
+        this.rok = true;
+      } 
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-#array-rendering{
-  background: url('../assets/gradient-bg.svg') no-repeat;
+#array-rendering {
+  background: url("../assets/gradient-bg.svg") no-repeat;
   background-attachment: fixed;
-
 }
 </style>
