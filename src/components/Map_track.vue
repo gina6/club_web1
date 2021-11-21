@@ -54,6 +54,7 @@ export default {
           "line-width": 8,
         },
       });
+      console.log(coordinates);
     });
   },
 };
@@ -65,6 +66,5 @@ export default {
 <style scoped>
 .map {
   width: 100%;
-  height: 50%;
 }
 </style>
