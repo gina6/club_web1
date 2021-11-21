@@ -54,6 +54,7 @@ export default {
           "line-width": 8,
         },
       });
+      console.log(coordinates);
     });
   },
 };

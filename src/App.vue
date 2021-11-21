@@ -54,6 +54,7 @@
   background-position-x: 100%;
   background-size: 60%;
   height: 10vh;
+  overflow: visible;
 }
 
 #nav {
@@ -68,5 +69,14 @@
   text-decoration: none;
   color: #ffffff;
   font-size: 24px;
+}
+
+h1 {
+  font-size: 2.5em;
+  padding-left: 8px;
+}
+
+h2 {
+  font-size: 1.5em;
 }
 </style>

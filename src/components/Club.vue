@@ -11,7 +11,7 @@
     </div>
     <div class="info">
       <h2>Distance from Trainstation</h2>
-      <p>{{distance}} km</p>
+      <p>{{distance}} min</p>
     </div>
     <div class="info">
       <h2>Music</h2>
@@ -64,12 +64,6 @@ export default {
   padding: 8px 5% 8px 5%;
   margin: 16px 0 16px 0;
 }
-
-h1 {
-  font-size: 40px;
-  padding-left: 8px;
-}
-
 
 p, h2{
   margin: 0;
