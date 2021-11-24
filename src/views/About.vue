@@ -1,16 +1,6 @@
 <template>
   <div id="container">
-    <h1>About</h1>
-    <div class="info">
-      <h2>STAY SAFE!</h2>
-      <p>
-        If you ever feel uneasy because of another person in the bar, the club
-        staff or barkeepers are always ready to help. Ask for “Luisa” at the bar
-        and you can leave through the backdoor. <br />
-        The app “WayGuard” provides a phone service where you can talk to
-        someone while walking home.
-      </p>
-    </div>
+    <img src="../assets/About_pagetitle.svg" alt="CLUB Logo" />
     <div class="info">
       <h2>CREATORS</h2>
       <ul>
@@ -31,35 +21,42 @@
 </script>
 
 <style scoped>
+
 #container {
-  background: url("../assets/gradient-bg.svg") no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  margin: 10%;
+  padding: 5%;
+  height: 66vh;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* background: rgba(64, 221, 194, 0.5); */
+  border-radius: 2em;
+  padding: 10% 10%;
+  margin: 10% 20%;
+  }
+
+h2 {
+  display: flex;
   text-align: left;
-  background-color: rgba(50, 50, 50, 0.6);
-  padding: 5%;
-  margin-top: 5%;
-  line-height: 1.5em;
+  letter-spacing: 0.1em;
 }
 
 ul {
   list-style: none;
   text-align: left;
+  font-family: "Jost";
+  font-size: 1.3em;
   padding: 0;
-  margin-top: 5%;
 }
 
 p {
-  margin: 5% 0 0 0;
-}
-
-h2 {
-  margin: 0;
+  display: flex;
+  text-align: left;
+  font-family: "Jost";
+  font-size: 1.3em;
 }
 </style>

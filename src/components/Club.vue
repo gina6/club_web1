@@ -10,7 +10,7 @@
       <p>{{openings}}</p>
     </div>
     <div class="info">
-      <h2>Distance from Trainstation</h2>
+      <h2>Distance</h2>
       <p>{{distance}} min</p>
     </div>
     <div class="info">
@@ -19,7 +19,7 @@
     </div>
     <div class="info">
       <h2>Events</h2>
-      <p class="link">{{events}}</p>
+      <a class="link" v-bind:href="events" target="_blank">Go to website</a>
     </div>
     <div class="info">
       <h2>Insider</h2>
@@ -48,29 +48,25 @@ export default {
 .club {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0;
   text-align: left;
   width: 100vw;
-  background: url('../assets/gradient-bg.svg') no-repeat;
-  background-attachment: fixed;
-
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  background-color: rgba(50, 50, 50, 0.6);
+  border-bottom: 3px solid #40DDC2;
   padding: 8px 5% 8px 5%;
-  margin: 16px 0 16px 0;
-}
-
-h2{
-  margin: 0;
+  margin: 16px 0 0px 0;
 }
 
 .link {
-  font-size: 10px;
+  font-family: "Jost";
+  font-size: 1.3em;
+  color: white;
+  padding: 5% 0;
 }
+
 
 </style>

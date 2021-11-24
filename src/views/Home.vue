@@ -7,26 +7,26 @@
     <div id="array-rendering" v-show="inseli">
       <div v-bind:key="clubs">
         <Club
-          :name="clubs[0].fields.name"
-          :entry="clubs[0].fields.entry"
-          :openings="clubs[0].fields.openings"
-          :distance="clubs[0].fields.distance"
-          :music="clubs[0].fields.music"
-          :events="clubs[0].fields.events"
-          :insider="clubs[0].fields.insider"
+          :name="clubs[2].fields.name"
+          :entry="clubs[3].fields.entry"
+          :openings="clubs[3].fields.openings"
+          :distance="clubs[3].fields.distance"
+          :music="clubs[3].fields.music"
+          :events="clubs[3].fields.events"
+          :insider="clubs[3].fields.insider"
         />
       </div>
     </div>
     <div id="array-rendering" v-show="rok">
       <div v-bind:key="clubs">
         <Club
-          :name="clubs[1].fields.name"
-          :entry="clubs[1].fields.entry"
-          :openings="clubs[1].fields.openings"
-          :distance="clubs[1].fields.distance"
-          :music="clubs[1].fields.music"
-          :events="clubs[1].fields.events"
-          :insider="clubs[1].fields.insider"
+          :name="clubs[5].fields.name"
+          :entry="clubs[5].fields.entry"
+          :openings="clubs[5].fields.openings"
+          :distance="clubs[5].fields.distance"
+          :music="clubs[5].fields.music"
+          :events="clubs[5].fields.events"
+          :insider="clubs[5].fields.insider"
         />
       </div>
     </div>
@@ -102,7 +102,7 @@ export default {
 }
 
 #array-rendering {
-  background: url("../assets/gradient-bg.svg") no-repeat;
+  /* background: url("../assets/gradient-bg.svg") no-repeat; */
   background-attachment: fixed;
 }
 </style>
