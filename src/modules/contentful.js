@@ -14,7 +14,6 @@ class Contentful {
             .getEntries({
                 content_type: "club"
             });
-        console.log(result.items);
         return result.items;
     }
 
@@ -22,11 +21,23 @@ class Contentful {
         let result = await this.client.getEntries({
             content_type: "track"
         });
-        // console.log(result);
         return result.items[0]?.fields.track.fields.file.url // a link to you gpx file in Contentful
 
     }
 
+    async getWayPoints() {
+        let result = await this.client.getEntries({
+            content_type: "club"
+        });
+        return result.items;
+    }
+
+    async getAssets() {
+        let result = await this.client.getEntries({
+            content_type: "Assets"
+        });
+        return result.items;
+    }
 
 }
 

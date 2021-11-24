@@ -1,8 +1,9 @@
 <template>
-  <div ref="container" class="map"></div>
+  <div class="map">
+    <button id="navigate" v-on:click="move()">Next Club</button>
+    <div ref="container" class="map"></div>
+  </div>
 </template>
-
-
 
 <script>
 import mapboxgl from "mapbox-gl";
@@ -10,13 +11,35 @@ import getCoordinatesFromGpxFile from "@/modules/gpx-utilities.js";
 import contentful from "@/modules/contentful.js";
 import * as turf from "@turf/turf";
 
+//const ANIMATION_DURATION = 100000;
+const CAMERA_ALTITUDE = 1000;
+const STEP_LENGTH = 0.01;
+const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
+let routeCoords;
+let camCoords;
+let distance = 0;
+let globalMap;
+let currentPos;
+let nextPos;
+
 export default {
   name: "Map",
 
   data: function () {
     return {
       clubs: [],
+      wayPoints: [],
     };
+  },
+  methods: {
+    move: function () {},
+  },
+  created: async function () {
+    this.clubs = await contentful.getClubs();
+    for (let i = 0; i < this.clubs.length; i++) {
+      this.wayPoints[i] = this.clubs[i].fields.wayPoint;
+    }
+    console.log(this.wayPoints);
   },
 
   mounted: async function () {
@@ -28,8 +51,7 @@ export default {
       center: [8.310294, 47.050235],
       zoom: 20, // starting zoom
       interactive: false,
-      pitch: 10,
-      bearing: 90,
+      pitch: 85,
     });
 
     // Displaying a GPX track
@@ -56,80 +78,74 @@ export default {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#888",
+          "line-color": "#ff00ff",
           "line-width": 8,
         },
       });
 
-      // this is the path the camera will look at
-      //const targetRoute = coordinates;
-      // this is the path the camera will move along
-      //const cameraRoute = mapboxgl.routes.camera;
-      const animationDuration = 100000;
-      const cameraAltitude = 0;
-      // get the overall distance of each route so we can interpolate along them
-      const routeDistance = turf.lineDistance(turf.lineString(coordinates));
-      const cameraRouteDistance = turf.lineDistance(
-        turf.lineString(coordinates)
-      );
-
-      let start;
-
-      function frame(time) {
-        if (!start) start = time;
-        // phase determines how far through the animation we are
-        const phase = (time - start) / animationDuration;
-
-        // phase is normalized between 0 and 1
-        // when the animation is finished, reset start to loop the animation
-        if (phase > 1) {
-          // wait 1.5 seconds before looping
-          setTimeout(() => {
-            start = 0.0;
-          }, 1500);
+      routeCoords = turf.cleanCoords(turf.lineString(coordinates));
+      camCoords = turf.cleanCoords(turf.lineString(coordinates));
+      globalMap = map;
+      setCameraPosition(map, routeCoords, camCoords, distance);
+      window.onkeydown = function (event) {
+        if (event.code == "ArrowUp") {
+          moveAlong(globalMap, routeCoords, camCoords);
         }
-
-        // use the phase to get a point that is the appropriate distance along the route
-        // this approach syncs the camera and route positions ensuring they move
-        // at roughly equal rates even if they don't contain the same number of points
-        const alongRoute = turf.along(
-          turf.lineString(coordinates),
-          routeDistance * phase
-        ).geometry.coordinates;
-
-        const alongCamera = turf.along(
-          turf.lineString(coordinates),
-          cameraRouteDistance * phase
-        ).geometry.coordinates;
-
-        const camera = map.getFreeCameraOptions();
-
-        // set the position and altitude of the camera
-        camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
-          {
-            lng: alongCamera[0],
-            lat: alongCamera[1],
-          },
-          cameraAltitude
-        );
-
-        // tell the camera to look at a point along the route
-        camera.lookAtPoint({
-          lng: alongRoute[0] + 0.001,
-          lat: alongRoute[1],
-        });
-
-        //camera.setPitchBearing(80, 90);
-
-        map.setFreeCameraOptions(camera);
-
-        window.requestAnimationFrame(frame);
-      }
-
-      window.requestAnimationFrame(frame);
+      };
     });
   },
 };
+
+// helper functions
+function setCameraPosition(
+  map,
+  routeLineString,
+  cameraRouteLineString,
+  distanceTravelled
+) {
+  const camera = map.getFreeCameraOptions();
+  camera.position = getCameraPos(cameraRouteLineString, distanceTravelled);
+  camera.lookAtPoint(getLookAt(routeLineString, distanceTravelled));
+  map.setFreeCameraOptions(camera);
+}
+
+function moveAlong(map, routeLineString, camRouteLineString) {
+  distance += STEP_LENGTH;
+  setCameraPosition(map, routeLineString, camRouteLineString, distance);
+}
+
+function getLookAt(routeLineString, distanceTravelled) {
+  let cameraCoord = turf.along(
+    routeLineString,
+    turf.lineDistance(routeLineString) * distanceTravelled
+  ).geometry.coordinates;
+  return { lng: cameraCoord[0], lat: cameraCoord[1] };
+}
+
+function getCameraPos(routeLineString, distanceTravelled) {
+  let distanceAlong;
+  // we can't go backwards outside the route so we wait until the distanceTravelled is greater than Distance back
+  if (distanceTravelled <= CAMERA_DISTANCE_BACK) {
+    distanceAlong = STEP_LENGTH;
+  } else {
+    distanceAlong = distanceTravelled - CAMERA_DISTANCE_BACK;
+  }
+  //interpolate along route
+  const cameraCoord = turf.along(
+    routeLineString,
+    turf.lineDistance(routeLineString) * distanceAlong
+  ).geometry.coordinates;
+  // create the proper form of coordinates
+  return mapboxgl.MercatorCoordinate.fromLngLat(
+    {
+      lng: cameraCoord[0],
+      lat: cameraCoord[1],
+    },
+    CAMERA_ALTITUDE
+  );
+}
+
+
 </script>
 
 <style src='mapbox-gl/dist/mapbox-gl.css'>
