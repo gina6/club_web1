@@ -2,7 +2,7 @@
   <div class="home">
     <button v-on:click="toggle('inseli')">INSELI</button>
     <button v-on:click="toggle('rok')">ROK</button>
-    <Map class="map" />
+    <Map v-show='showMap' class="map" />
 
     <div id="array-rendering" v-show="inseli">
       <div v-bind:key="clubs">
@@ -35,23 +35,24 @@
 
 
 <script>
-import Map from '@/components/Map_track.vue'
-import Club from '@/components/Club.vue'
+import Map from "@/components/Map_track.vue";
+import Club from "@/components/Club.vue";
 import { createClient } from "contentful";
 
 export default {
   name: "Home",
   components: {
-        Map,
-        Club,
-    },
+    Map,
+    Club,
+  },
   data() {
     return {
+      showMap: true,
       showOverlay: false,
-            clubs: [],
+      clubs: [],
       inseli: false,
       rok: false,
-    }
+    };
   },
   created: function () {
     let client = createClient({
@@ -72,22 +73,25 @@ export default {
       if (message == "inseli") {
         if (this.inseli) {
           this.inseli = false;
+          this.showMap = true;
         } else {
           this.rok = false;
           this.inseli = true;
+          this.showMap = false;
         }
       } else if (message == "rok") {
         if (this.rok) {
           this.rok = false;
+          this.showMap = true;
         } else {
           this.inseli = false;
           this.rok = true;
+          this.showMap = false;
         }
       }
     },
   },
 };
-
 </script>
 
 
