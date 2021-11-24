@@ -3,6 +3,7 @@
     <img src="./assets/CLUB.svg" alt="CLUB Logo" />
     <div id="nav">
       <router-link to="/">Home</router-link>
+      <router-link to="/help">Help</router-link>
       <router-link to="/about">About</router-link>
     </div>
   </div>
@@ -33,7 +34,7 @@
 }
 
 #app {
-  font-family: 'Orbitron', Helvetica, Arial, sans-serif;
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -53,7 +54,7 @@
   /* background: no-repeat url("./assets/grid.svg"); */
   background-position-x: 100%;
   background-size: 60%;
-  height: 10vh;
+  height: 12vh;
   overflow: visible;
 }
 
