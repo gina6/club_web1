@@ -52,7 +52,7 @@ export default {
   padding: 0;
   text-align: left;
   width: 100vw;
-    background: url('../assets/gradient-bg.svg') no-repeat;
+  background: url('../assets/gradient-bg.svg') no-repeat;
   background-attachment: fixed;
 
 }
@@ -65,7 +65,7 @@ export default {
   margin: 16px 0 16px 0;
 }
 
-p, h2{
+h2{
   margin: 0;
 }
 

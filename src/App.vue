@@ -13,7 +13,7 @@
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Orbitron");
-
+@import url('https://fonts.googleapis.com/css2?family=Jost');
 /* @font-face {
   font-family: 'Orbitron';
   font-weight: normal;
@@ -50,7 +50,7 @@
   align-items: baseline;
   justify-content: space-between;
   padding: 5%;
-  background: no-repeat url("./assets/grid.svg");
+  /* background: no-repeat url("./assets/grid.svg"); */
   background-position-x: 100%;
   background-size: 60%;
   height: 10vh;
@@ -78,5 +78,10 @@ h1 {
 
 h2 {
   font-size: 1.5em;
+}
+
+p{
+  font-family: "Jost";
+  font-size: 1em;
 }
 </style>
