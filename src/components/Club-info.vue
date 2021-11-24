@@ -9,9 +9,9 @@
       <h2>Opening Hours</h2>
       <p>{{openings}}</p>
     </div>
-    <div class="info">
+    <div class="infos">
       <h2>Distance from Trainstation</h2>
-      <p>{{distance}} min</p>
+      <p>{{distance}} km</p>
     </div>
     <div class="info">
       <h2>Music</h2>
@@ -19,7 +19,7 @@
     </div>
     <div class="info">
       <h2>Events</h2>
-      <p class="link">{{events}}</p>
+      <p>{{events}}</p>
     </div>
     <div class="info">
       <h2>Insider</h2>
@@ -43,34 +43,24 @@ export default {
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 .club {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0;
+  padding: 0 5% 0 5%;
   text-align: left;
-  width: 100vw;
-    background: url('../assets/gradient-bg.svg') no-repeat;
-  background-attachment: fixed;
-
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  background-color: rgba(50, 50, 50, 0.6);
-  padding: 8px 5% 8px 5%;
-  margin: 16px 0 16px 0;
 }
 
-p, h2{
-  margin: 0;
-}
-
-.link {
-  font-size: 10px;
+h1 {
+  font-size: 40px;
 }
 
 </style>

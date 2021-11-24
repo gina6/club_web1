@@ -14,8 +14,10 @@
     "mapbox-gl": "^2.6.0",
     "three": "^0.134.0",
     "threebox-plugin": "^2.2.5",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.12"
+    "vue": "^3.2.22",
+    "vue-fixed-header": "^3.2.15",
+    "vue-router": "^4.0.12",
+    "vuejs-overlay": "^0.0.28"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
