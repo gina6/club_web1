@@ -1,6 +1,4 @@
 <template>
-  <!-- hugo ond stuff -->
-
   <Button v-on:click="drink" :ButtonName="DrinkButton" />
 
   <Button v-on:click="backToMap"  :ButtonName="BackToMapButton" />

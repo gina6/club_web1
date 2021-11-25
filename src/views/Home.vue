@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <button v-on:click="toggle('inseli', 1)">INSELI</button>
+    <!-- <button v-on:click="toggle('inseli', 1)">INSELI</button> -->
+    <Start  v-show="showStart" />
     <Map v-show="showMap" class="map" />
 
     <div id="array-rendering" v-show="inseli">
@@ -16,7 +17,7 @@
         />
       </div>
     </div>
-    <div class="overlay">
+    <div class="overlay"  v-show="showOverlay">
       <Overlay />
     </div>
   </div>
@@ -26,7 +27,8 @@
 <script>
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
-import Overlay from "@/components/Overlay.vue"
+import Overlay from "@/components/Overlay.vue";
+import Start from "@/components/Start.vue";
 import contentful from "@/modules/contentful";
 
 export default {
@@ -35,10 +37,12 @@ export default {
     Map,
     Club,
     Overlay,
+    Start,
   },
   data() {
     return {
-      showMap: true,
+      showStart: true,
+      showMap: false,
       showOverlay: false,
       clubs: [],
       inseli: false,
@@ -56,6 +60,7 @@ export default {
         if (this.inseli) {
           this.inseli = false;
           this.showMap = true;
+          this.showStart = false;
           this.index = idx;
         } else {
           this.inseli = true;
@@ -72,11 +77,10 @@ export default {
 <style scoped>
 .map {
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
 }
 
 #array-rendering {
-  /* background: url("../assets/gradient-bg.svg") no-repeat; */
   background-attachment: fixed;
 }
 </style>
