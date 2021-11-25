@@ -1,32 +1,18 @@
 <template>
   <div class="home">
-    <button v-on:click="toggle('inseli')">INSELI</button>
-    <button v-on:click="toggle('rok')">ROK</button>
-    <Map v-show='showMap' class="map" />
+    <button v-on:click="toggle('inseli', 1)">INSELI</button>
+    <Map v-show="showMap" class="map" />
 
     <div id="array-rendering" v-show="inseli">
-      <div v-bind:key="clubs">
+      <div v-bind:key="clubs" v-if="clubs.length > 0">
         <Club
-          :name="clubs[2].fields.name"
-          :entry="clubs[3].fields.entry"
-          :openings="clubs[3].fields.openings"
-          :distance="clubs[3].fields.distance"
-          :music="clubs[3].fields.music"
-          :events="clubs[3].fields.events"
-          :insider="clubs[3].fields.insider"
-        />
-      </div>
-    </div>
-    <div id="array-rendering" v-show="rok">
-      <div v-bind:key="clubs">
-        <Club
-          :name="clubs[5].fields.name"
-          :entry="clubs[5].fields.entry"
-          :openings="clubs[5].fields.openings"
-          :distance="clubs[5].fields.distance"
-          :music="clubs[5].fields.music"
-          :events="clubs[5].fields.events"
-          :insider="clubs[5].fields.insider"
+          :name="clubs[index].fields.name"
+          :entry="clubs[index].fields.entry"
+          :openings="clubs[index].fields.openings"
+          :distance="clubs[index].fields.distance"
+          :music="clubs[index].fields.music"
+          :events="clubs[index].fields.events"
+          :insider="clubs[index].fields.insider"
         />
       </div>
     </div>
@@ -37,7 +23,7 @@
 <script>
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
-import { createClient } from "contentful";
+import contentful from "@/modules/contentful";
 
 export default {
   name: "Home",
@@ -51,42 +37,25 @@ export default {
       showOverlay: false,
       clubs: [],
       inseli: false,
-      rok: false,
+      index: 0,
     };
   },
-  created: function () {
-    let client = createClient({
-      space: "u9dhuprfyl2f",
-      accessToken: "2huSEg1MXrqlf2D3wvB3Izb5kCLDXHY5TZLKZdEHB9U",
-    });
+  created: async function () {
+    this.clubs = await contentful.getClubs();
 
-    client.getEntries().then((entries) => {
-      // log the title for all the entries that have it
-      console.log(entries.items);
-      this.clubs = entries.items;
-      console.log(this.clubs);
-    });
   },
   methods: {
-    toggle: function (message) {
+    toggle: function (message, idx) {
       console.log(message);
       if (message == "inseli") {
         if (this.inseli) {
           this.inseli = false;
           this.showMap = true;
+          this.index = idx;
         } else {
-          this.rok = false;
           this.inseli = true;
           this.showMap = false;
-        }
-      } else if (message == "rok") {
-        if (this.rok) {
-          this.rok = false;
-          this.showMap = true;
-        } else {
-          this.inseli = false;
-          this.rok = true;
-          this.showMap = false;
+          this.index = idx;
         }
       }
     },
