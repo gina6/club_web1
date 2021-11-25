@@ -56,7 +56,7 @@ export default {
 .info {
   display: flex;
   flex-direction: column;
-  border-bottom: 3px solid #40DDC2;
+  /* border-bottom: 3px solid #40DDC2; */
   padding: 8px 5% 8px 5%;
   margin: 16px 0 0px 0;
 }
