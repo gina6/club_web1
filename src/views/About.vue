@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="gradient">
   <div id="container">
     <img class="About1" src="../assets/About_pagetitle.svg" alt="About" />
     <div class="info">
@@ -31,28 +31,30 @@
 #container {
   display: flex;
   flex-direction: row;
-  margin: 10%;
-  margin-bottom: 2%;
   padding: 5%;
 
   width: 90vw;
-  height: 77vh;
+  height: 60vh;
   /*min-height: 100vh;*/
   overflow-y: scroll;
-  background: linear-gradient(#01003300, #010033);
   z-index: -1;
-  
+  background: linear-gradient(#72728300, #010033);
+}
+
+.gradient {
+
 }
 
 .About1{
   top: -11%;
   left: 7%;
-  padding: 0% 0% 16% 10%;
+  padding: 35% 0% 16% 10%;
 }
 
 #photo {
   padding-bottom: 5%;
   height: 60vh;
+  background: linear-gradient(#010033, #72728300);
 }
 
 .groupphoto {
