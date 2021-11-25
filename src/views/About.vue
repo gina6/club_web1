@@ -1,6 +1,7 @@
 <template>
+<div>
   <div id="container">
-    <img src="../assets/About_pagetitle.svg" alt="About" />
+    <img class="About1" src="../assets/About_pagetitle.svg" alt="About" />
     <div class="info">
       <h2>CREATORS</h2>
       <ul>
@@ -19,7 +20,7 @@
   <div id="photo">
     <img class="groupphoto" src="../assets/Groupphoto.jpg" alt="Groupphoto" />
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -33,7 +34,20 @@
   margin: 10%;
   margin-bottom: 2%;
   padding: 5%;
-  height: 50vh;
+
+  width: 90vw;
+  height: 77vh;
+  /*min-height: 100vh;*/
+  overflow-y: scroll;
+  background: linear-gradient(#01003300, #010033);
+  z-index: -1;
+  
+}
+
+.About1{
+  top: -11%;
+  left: 7%;
+  padding: 0% 0% 16% 10%;
 }
 
 #photo {
@@ -48,7 +62,7 @@
 .info {
   display: flex;
   flex-direction: column;
-  margin: 10% 20%;
+  margin: 25% 18% 25% 15%;
   }
 
 ul {
