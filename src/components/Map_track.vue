@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <button id="navigate" v-on:click="navigate('navigate')">Next Club</button>
+    <img src="../assets/NavArrow.svg" v-on:click="navigate('navigate')" alt="">
     <div ref="container" class="map"></div>
   </div>
 </template>
@@ -12,9 +12,9 @@ import contentful from "@/modules/contentful.js";
 import * as turf from "@turf/turf";
 
 //const ANIMATION_DURATION = 100000;
-const CAMERA_ALTITUDE = 500;
+const CAMERA_ALTITUDE = 600;
 const STEP_LENGTH = 0.01;
-const CAMERA_DISTANCE_BACK = 10 * STEP_LENGTH;
+const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
 let routeCoords;
 let camCoords;
 let distance = 0;
@@ -23,6 +23,7 @@ let currentIndex;
 let currentPos = {};
 let nextPos = {};
 let wayPoints;
+let logoAssets;
 
 export default {
   name: "Map",
@@ -30,6 +31,7 @@ export default {
   data: function () {
     return {
       clubs: [],
+      logoAssets: [],
     };
   },
   methods: {
@@ -45,6 +47,8 @@ export default {
   mounted: async function () {
     // set waypoints and initialize Positions
     wayPoints = await contentful.getWayPoints();
+    logoAssets = await contentful.getLogoAssets();
+    console.log(logoAssets[0].fields.media.fields.file.url);
 
     // initialize map
     mapboxgl.accessToken =
@@ -105,16 +109,24 @@ function move() {
   if (!currentIndex) {
     currentIndex = 0;
   }
-  currentPos = setPositions(currentIndex);
-  nextPos = setPositions(currentIndex+1)
+
+  let routeIndex = 0;
+  currentPos = routeCoords.geometry.coordinates[routeIndex];
+  nextPos = setPositions(currentIndex + 1);
 
   console.log(currentPos, nextPos);
+  console.log(routeCoords);
+
+  while (currentPos[0] != nextPos.lon && currentPos[1] != nextPos.lat) {
+    moveAlong(globalMap, routeCoords, camCoords);
+    routeIndex++;
+    currentPos = routeCoords.geometry.coordinates[routeIndex];
+  }
 }
 
 function setPositions(index) {
-  return {lat: wayPoints[index].lat, lon: wayPoints[index].lon}
+  return { lat: wayPoints[index].lat, lon: wayPoints[index].lon };
 }
-
 
 /* ------------------------------------------
 helper functions for camera and movement 
@@ -177,5 +189,13 @@ function getCameraPos(routeLineString, distanceTravelled) {
 .map {
   width: 100%;
   height: 100%;
+}
+
+img {
+  position: fixed;
+  bottom: 5%;
+  left: 30%;
+  z-index: 1;
+
 }
 </style>

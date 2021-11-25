@@ -34,11 +34,13 @@ class Contentful {
     return result;
   }
 
-  async getAssets() {
-    let result = await this.client.getEntries({
-      content_type: "Assets"
-    });
-    return result.items;
+  async getLogoAssets() {
+    let result = [];
+    let clubs = await this.getClubs()
+    clubs.forEach((club) => {
+      result.push(club.fields.logo)
+    })
+    return result;
   }
 
 }
