@@ -1,7 +1,7 @@
 <template>
 <div id="gradient">
   <div id="container">
-    <img class="About1" src="../assets/About_pagetitle.svg" alt="About" />
+    <img class="About1" src="../assets/about_pagetitle.svg" alt="About" />
     <div class="info">
       <h2>CREATORS</h2>
       <ul>
@@ -41,14 +41,10 @@
   background: linear-gradient(#72728300, #010033);
 }
 
-.gradient {
-
-}
-
 .About1{
   top: -11%;
   left: 7%;
-  padding: 35% 0% 16% 10%;
+  padding: 35% 0% 14% 10%;
 }
 
 #photo {

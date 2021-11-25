@@ -1,7 +1,7 @@
 <template>
 <div>
 <div id="container">
-    <img class="Help1" src="../assets/Info_pagetitle.svg" alt="Info" />
+    <img class="Help1" src="../assets/info_pagetitle.svg" alt="Info" />
     <div class="info">
       <h2>STAY SAFE!</h2>
       <p>
