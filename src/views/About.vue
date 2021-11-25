@@ -16,9 +16,9 @@
     </div>
 
   </div>
-        <div id="photo">
-        <img class="groupphoto" src="../assets/Groupphoto.jpg" alt="Groupphoto" />
-      </div>
+  <div id="photo">
+    <img class="groupphoto" src="../assets/Groupphoto.jpg" alt="Groupphoto" />
+  </div>
 
 </template>
 
@@ -31,12 +31,13 @@
   display: flex;
   flex-direction: row;
   margin: 10%;
+  margin-bottom: 2%;
   padding: 5%;
   height: 50vh;
 }
 
 #photo {
-  padding: 10%;
+  padding-bottom: 5%;
   height: 60vh;
 }
 
