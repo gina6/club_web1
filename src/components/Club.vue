@@ -35,7 +35,7 @@ export default {
     name: String,
     entry: String,
     openings: String,
-    distance: Object,
+    distance: String,
     music: String,
     events: String,
     insider: String
