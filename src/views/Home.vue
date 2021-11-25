@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <button v-on:click="toggle('inseli', 1)">INSELI</button>
+    <button v-show="showClubButton" v-on:click="toggle('inseli', 1)">INSELI</button>
     <Map v-show="showMap" class="map" />
 
     <div id="array-rendering" v-show="inseli">
@@ -19,6 +19,7 @@
     <div class="overlay">
       <Overlay />
     </div>
+    <Button/>
   </div>
 </template>
 
@@ -27,6 +28,7 @@
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
 import Overlay from "@/components/Overlay.vue"
+import Button from "@/components/Button.vue"
 import contentful from "@/modules/contentful";
 
 export default {
@@ -35,6 +37,7 @@ export default {
     Map,
     Club,
     Overlay,
+    Button,
   },
   data() {
     return {
@@ -43,6 +46,7 @@ export default {
       clubs: [],
       inseli: false,
       index: 0,
+      showClubButton: false,
     };
   },
   created: async function () {

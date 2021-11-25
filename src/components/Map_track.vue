@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <img src="../assets/NavArrow.svg" v-on:click="navigate('navigate')" alt="">
+    <img src="../assets/NavArrow.svg" v-on:click="navigate()" alt="" />
     <div ref="container" class="map"></div>
   </div>
 </template>
@@ -18,11 +18,12 @@ const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
 let routeCoords;
 let camCoords;
 let distance = 0;
-let globalMap;
-let currentIndex;
+/* let globalMap;
+let wayPointIndex = 0;
+let routeIndex = 0;
 let currentPos = {};
 let nextPos = {};
-let wayPoints;
+let wayPoints; */
 let logoAssets;
 
 export default {
@@ -35,9 +36,8 @@ export default {
     };
   },
   methods: {
-    navigate: function (message) {
+    navigate: function () {
       move();
-      console.log(message);
     },
   },
   created: async function () {
@@ -95,41 +95,37 @@ export default {
       camCoords = turf.cleanCoords(turf.lineString(coordinates));
       globalMap = map;
       setCameraPosition(map, routeCoords, camCoords, distance);
-      window.onkeydown = function (event) {
-        if (event.code == "ArrowUp") {
-          moveAlong(globalMap, routeCoords, camCoords);
-        }
-      };
     });
   },
 };
 
 // move function
 function move() {
-  if (!currentIndex) {
-    currentIndex = 0;
-  }
 
-  let routeIndex = 0;
-  currentPos = routeCoords.geometry.coordinates[routeIndex];
-  nextPos = setPositions(currentIndex + 1);
+}
+/* function move() {
+  currentPos = camCoords.geometry.coordinates[routeIndex];
+  nextPos = setPositions(wayPointIndex + 1);
 
+  console.log(camCoords.geometry.coordinates);
+  console.log(wayPoints);
   console.log(currentPos, nextPos);
-  console.log(routeCoords);
 
-  while (currentPos[0] != nextPos.lon && currentPos[1] != nextPos.lat) {
+  while (nextPos.lat != currentPos[1] ) {
+    currentPos = camCoords.geometry.coordinates[routeIndex];
     moveAlong(globalMap, routeCoords, camCoords);
     routeIndex++;
-    currentPos = routeCoords.geometry.coordinates[routeIndex];
+    console.log("navigate");
   }
+  wayPointIndex++;
 }
 
 function setPositions(index) {
   return { lat: wayPoints[index].lat, lon: wayPoints[index].lon };
-}
+} */
 
 /* ------------------------------------------
-helper functions for camera and movement 
+Helper functions for camera and movement 
 (by Simon from BrumBrum)
 ------------------------------------------*/
 
@@ -196,6 +192,5 @@ img {
   bottom: 5%;
   left: 30%;
   z-index: 1;
-
 }
 </style>
