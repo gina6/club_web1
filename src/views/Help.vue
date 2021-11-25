@@ -1,6 +1,7 @@
 <template>
+<div>
 <div id="container">
-    <img src="../assets/Info_pagetitle.svg" alt="Info" />
+    <img class="Help1" src="../assets/Info_pagetitle.svg" alt="Info" />
     <div class="info">
       <h2>STAY SAFE!</h2>
       <p>
@@ -12,6 +13,7 @@
       </p>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
@@ -19,9 +21,12 @@
 #container {
   display: flex;
   flex-direction: row;
-  margin: 5% 0 0 5%;
   padding: 5%;
-  height: 50vh;
+  width: 90vw;
+  height: 77vh;
+  overflow-y: scroll;
+  background: linear-gradient(#01003300, #010033);
+  z-index: -1;
 }
 
 .info {
@@ -30,9 +35,16 @@
   margin: 10% 5% 5% 15%;
   }
 
+.Help1{
+  top: -11%;
+  left: 7%;
+  padding: 21% 0% 38% 10%;
+}
+
+
 h2 {
  text-align: left;
-
 }
+
 
 </style>
