@@ -14,10 +14,11 @@
         Studio Web &amp; Mobile 2021
       </p>
     </div>
-      <div id="photo">
-        <img src="../assets/Groupphoto.jpg" alt="Groupphoto" />
-      </div>
+
   </div>
+        <div id="photo">
+        <img class="groupphoto" src="../assets/Groupphoto.jpg" alt="Groupphoto" />
+      </div>
 
 </template>
 
@@ -35,12 +36,12 @@
 }
 
 #photo {
-  display: flex;
-  flex-direction: row;
-  margin-top: 50vh;
-  margin-left: -85vw;
   padding: 10%;
-  height: 50vh;
+  height: 60vh;
+}
+
+.groupphoto {
+  height: 100%;
 }
 
 .info {
