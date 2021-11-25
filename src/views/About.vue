@@ -1,5 +1,5 @@
 <template>
-<div id="backgroundblack">
+<div>
   <div id="container">
     <img class="About1" src="../assets/About_pagetitle.svg" alt="About" />
     <div class="info">
@@ -16,7 +16,7 @@
       </p>
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -33,16 +33,15 @@
   height: 77vh;
   /*min-height: 100vh;*/
   overflow-y: scroll;
-  background: linear-gradient(#00000000, #000000b0);
+  background: linear-gradient(#01003300, #010033);
   z-index: -1;
   
 }
 
 .About1{
-  position:relative;
   top: -11%;
   left: 7%;
-  padding: 21% 0% 0% 10%;
+  padding: 0% 0% 16% 10%;
 }
 
 .info {
