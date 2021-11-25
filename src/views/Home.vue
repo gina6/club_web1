@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <button v-on:click="toggle('inseli', 0)">INSELI</button>
+    <button v-on:click="toggle('inseli', 1)">INSELI</button>
     <Map v-show="showMap" class="map" />
 
     <div id="array-rendering" v-show="inseli">

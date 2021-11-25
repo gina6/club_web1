@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <button id="navigate" v-on:click="move()">Next Club</button>
+    <button id="navigate" v-on:click="navigate('navigate')">Next Club</button>
     <div ref="container" class="map"></div>
   </div>
 </template>
@@ -12,15 +12,17 @@ import contentful from "@/modules/contentful.js";
 import * as turf from "@turf/turf";
 
 //const ANIMATION_DURATION = 100000;
-const CAMERA_ALTITUDE = 1000;
+const CAMERA_ALTITUDE = 500;
 const STEP_LENGTH = 0.01;
-const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
+const CAMERA_DISTANCE_BACK = 10 * STEP_LENGTH;
 let routeCoords;
 let camCoords;
 let distance = 0;
 let globalMap;
-let currentPos;
-let nextPos;
+let currentIndex;
+let currentPos = {};
+let nextPos = {};
+let wayPoints;
 
 export default {
   name: "Map",
@@ -28,28 +30,30 @@ export default {
   data: function () {
     return {
       clubs: [],
-      wayPoints: [],
     };
   },
   methods: {
-    move: function () {},
+    navigate: function (message) {
+      move();
+      console.log(message);
+    },
   },
   created: async function () {
     this.clubs = await contentful.getClubs();
-    for (let i = 0; i < this.clubs.length; i++) {
-      this.wayPoints[i] = this.clubs[i].fields.wayPoint;
-    }
-    console.log(this.wayPoints);
   },
 
   mounted: async function () {
+    // set waypoints and initialize Positions
+    wayPoints = await contentful.getWayPoints();
+
+    // initialize map
     mapboxgl.accessToken =
       "pk.eyJ1IjoiZGlnaXRhbGlkZWF0aW9udmFuZWIiLCJhIjoiY2t2dGk1aGdmMngxbjJ4b3VuenF1ZHBzbiJ9.EQOJw9sGg2zuIg4LX8e2nA";
     let map = new mapboxgl.Map({
-      container: this.$refs.container, // container ID
-      style: "mapbox://styles/digitalideationvaneb/ckvwd9hz20or214kiunsr99ht", // My custom style
+      container: this.$refs.container,
+      style: "mapbox://styles/digitalideationvaneb/ckvwd9hz20or214kiunsr99ht",
       center: [8.310294, 47.050235],
-      zoom: 20, // starting zoom
+      zoom: 20,
       interactive: false,
       pitch: 85,
     });
@@ -78,7 +82,7 @@ export default {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#ff00ff",
+          "line-color": "#ffffff",
           "line-width": 8,
         },
       });
@@ -96,7 +100,27 @@ export default {
   },
 };
 
-// helper functions
+// move function
+function move() {
+  if (!currentIndex) {
+    currentIndex = 0;
+  }
+  currentPos = setPositions(currentIndex);
+  nextPos = setPositions(currentIndex+1)
+
+  console.log(currentPos, nextPos);
+}
+
+function setPositions(index) {
+  return {lat: wayPoints[index].lat, lon: wayPoints[index].lon}
+}
+
+
+/* ------------------------------------------
+helper functions for camera and movement 
+(by Simon from BrumBrum)
+------------------------------------------*/
+
 function setCameraPosition(
   map,
   routeLineString,
@@ -144,8 +168,6 @@ function getCameraPos(routeLineString, distanceTravelled) {
     CAMERA_ALTITUDE
   );
 }
-
-
 </script>
 
 <style src='mapbox-gl/dist/mapbox-gl.css'>
