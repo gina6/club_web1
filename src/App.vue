@@ -1,22 +1,20 @@
 <template>
   <div id="header">
-    <img src="./assets/Logo_Club_bw.png" alt="CLUB Logo" />
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/help">Info</router-link>
-      <router-link to="/about">About</router-link>
+      <img src="./assets/Logo_Club_bw.png" alt="CLUB Logo" />
+      <div id="nav">
+        <router-link to="/">Home</router-link>
+        <router-link to="/help">Info</router-link>
+        <router-link to="/about">About</router-link>
+      </div>
     </div>
-  </div>
   <router-view />
 </template>
 
 
 
 <style>
-
 @import url("https://fonts.googleapis.com/css?family=Orbitron");
-@import url('https://fonts.googleapis.com/css2?family=Jost');
-
+@import url("https://fonts.googleapis.com/css2?family=Jost");
 </style>
 
 <style>
@@ -69,7 +67,7 @@
 }
 
 #nav a:focus {
-  color:#ffffff;
+  color: #ffffff;
 }
 
 h1 {
@@ -87,7 +85,7 @@ h2 {
   letter-spacing: 0.1em;
 }
 
-p{
+p {
   font-family: "Jost";
   font-size: 1.3em;
   text-align: left;

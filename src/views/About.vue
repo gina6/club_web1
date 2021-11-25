@@ -28,6 +28,7 @@
   margin: 10%;
   padding: 5%;
   height: 50vh;
+  
 }
 
 .info {
