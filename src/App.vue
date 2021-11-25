@@ -2,7 +2,7 @@
   <div id="header">
       <img src="./assets/Logo_Club_bw.png" alt="CLUB Logo" />
       <div id="nav">
-        <router-link to="/">Home</router-link>
+        <router-link to="/">Map</router-link>
         <router-link to="/help">Info</router-link>
         <router-link to="/about">About</router-link>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <button v-on:click="toggle('inseli', 1)">INSELI</button>
+    <!-- <button v-on:click="toggle('inseli', 1)">INSELI</button> -->
     <Start  v-show="showStart" />
     <Map v-show="showMap" class="map" />
 
@@ -17,7 +17,7 @@
         />
       </div>
     </div>
-    <div class="overlay">
+    <div class="overlay"  v-show="showOverlay">
       <Overlay />
     </div>
   </div>
