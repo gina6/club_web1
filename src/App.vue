@@ -3,7 +3,7 @@
     <img src="./assets/Logo_Club_bw.png" alt="CLUB Logo" />
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/help">Help</router-link>
+      <router-link to="/help">Info</router-link>
       <router-link to="/about">About</router-link>
     </div>
   </div>
@@ -13,19 +13,10 @@
 
 
 <style>
+
 @import url("https://fonts.googleapis.com/css?family=Orbitron");
 @import url('https://fonts.googleapis.com/css2?family=Jost');
-/* @font-face {
-  font-family: 'Orbitron';
-  font-weight: normal;
-  src: url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
-}
 
-@font-face {
-  font-family: 'Orbitron';
-  font-weight: bold;
-  src: url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap");
-} */
 </style>
 
 <style>
@@ -41,10 +32,13 @@
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  background: url("./assets/background.jpg") no-repeat;
+  background: url("./assets/android_size_background.jpg") no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow-y: scroll;
 }
 
 #header {
@@ -53,7 +47,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 5%;
-  /* background-color: var(--bg-black); */
   background-position-x: 100%;
   background-size: 60%;
   height: 12vh;
@@ -76,7 +69,7 @@
 }
 
 #nav a:focus {
-  color: rgba(64, 221, 194, 0.5);
+  color:#ffffff;
 }
 
 h1 {
@@ -97,5 +90,6 @@ h2 {
 p{
   font-family: "Jost";
   font-size: 1.3em;
+  text-align: left;
 }
 </style>
