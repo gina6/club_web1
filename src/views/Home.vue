@@ -71,7 +71,7 @@ export default {
 }
 
 #array-rendering {
-  background: url("../assets/gradient-bg.svg") no-repeat;
+  /* background: url("../assets/gradient-bg.svg") no-repeat; */
   background-attachment: fixed;
 }
 </style>
