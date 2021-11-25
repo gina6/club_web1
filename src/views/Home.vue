@@ -16,6 +16,9 @@
         />
       </div>
     </div>
+    <div class="overlay">
+      <Overlay />
+    </div>
   </div>
 </template>
 
@@ -23,6 +26,7 @@
 <script>
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
+import Overlay from "@/components/Overlay.vue"
 import contentful from "@/modules/contentful";
 
 export default {
@@ -30,6 +34,7 @@ export default {
   components: {
     Map,
     Club,
+    Overlay,
   },
   data() {
     return {
