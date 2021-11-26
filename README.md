@@ -15,10 +15,10 @@ https://web1-club.netlify.app/#/
 cLUb (Club Tour)
 
 ### Members
-Michelle Egli (Design)
-Vanessa Buchmann (Design)
-Giuliana Costa (IT)
-Gina Fontana (IT)
+* Michelle Egli (Design)
+* Vanessa Buchmann (Design)
+* Giuliana Costa (IT)
+* Gina Fontana (IT)
 
 ---
 
