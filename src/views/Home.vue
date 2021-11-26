@@ -9,16 +9,13 @@
         id="arrowNext"
       />
     </div>
-    <Map ref="map" v-show="showMap" class="map" />
+    <Map ref="map" v-show="showMap" class="map" @emitClubInfo="clubInfo($event)" />
 
-    <button id="clubInfoBtn" v-on:click="toggle(1)" v-show="showClubButton">
-      Show Club Info
-    </button>
 
     <div
       id="array-rendering"
       v-show="showClubInfo"
-      @emitClubInfo="clubInfo($event)"
+      
     >
       <div v-bind:key="clubs" v-if="clubs.length > 0">
         <Club
@@ -60,7 +57,6 @@ export default {
       clubs: [],
       showClubInfo: false,
       index: 0,
-      showClubButton: false,
       hideClubButton: false,
     };
   },
@@ -73,26 +69,24 @@ export default {
       this.index = idx;
       this.showMap = false;
       this.hideClubButton = true;
-      this.showClubButton = false;
     },
     clubInfo: function (clubIndex) {
       console.log("show club info");
       this.showClubInfo = true;
       this.showMap = false;
+      this.hideClubButton = true;
       this.index = clubIndex;
     },
     next: function () {
       this.showStart = false;
       this.showMap = true;
-      this.showClubButton = true;
-      setTimeout(1000, function () {
+      this.$nextTick( () => {
         this.$refs.map.updateMap();
       });
     },
     hide: function () {
       this.showClubInfo = false;
       this.showMap = true;
-      this.showClubButton = true;
       this.hideClubButton = false;
     },
   },
@@ -112,6 +106,7 @@ export default {
 
 button {
   padding: 2.5%;
+  margin-bottom: 5%;
   border: white solid 2px;
   border-radius: 2px;
   color: white;
