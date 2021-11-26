@@ -1,6 +1,7 @@
 <template>
   <div class="map">
     <img src="../assets/NavArrow.svg" v-on:click="navigate()" alt="" />
+    <button v-show="showButton" @click="emitClubInfo(clubIndex)">Show Information</button>
     <div ref="container" class="map"></div>
   </div>
 </template>
@@ -11,20 +12,13 @@ import getCoordinatesFromGpxFile from "@/modules/gpx-utilities.js";
 import contentful from "@/modules/contentful.js";
 import * as turf from "@turf/turf";
 
-//const ANIMATION_DURATION = 100000;
 const CAMERA_ALTITUDE = 600;
-const STEP_LENGTH = 0.01;
+const STEP_LENGTH = 0.02;
 const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
 let routeCoords;
 let camCoords;
 let distance = 0;
-/* let globalMap;
-let wayPointIndex = 0;
-let routeIndex = 0;
-let currentPos = {};
-let nextPos = {};
-let wayPoints; */
-let logoAssets;
+let globalMap;
 
 export default {
   name: "Map",
@@ -32,13 +26,32 @@ export default {
   data: function () {
     return {
       clubs: [],
-      logoAssets: [],
+      showClubInfo: false,
+      clubIndex: 1,
+      showButton: false,
+      pos: 0,
     };
   },
   methods: {
     navigate: function () {
       move();
+      this.pos++;
+
+      if(this.pos == 11){
+        this.showButton = true;
+        this.clubIndex = 1;
+      } else if (this.pos == 20){
+        this.showButton = true;
+        this.clubIndex = 2;
+      } else{
+        this.showButton = false;
+      }
+
     },
+    emitClubInfo(clubIndex){
+      console.log('emit')
+      this.$emit('emitClubInfo', clubIndex);
+    }
   },
   created: async function () {
     this.clubs = await contentful.getClubs();
@@ -46,9 +59,7 @@ export default {
 
   mounted: async function () {
     // set waypoints and initialize Positions
-    wayPoints = await contentful.getWayPoints();
-    logoAssets = await contentful.getLogoAssets();
-    console.log(logoAssets[0].fields.media.fields.file.url);
+    //wayPoints = await contentful.getWayPoints();
 
     // initialize map
     mapboxgl.accessToken =
@@ -97,32 +108,14 @@ export default {
       setCameraPosition(map, routeCoords, camCoords, distance);
     });
   },
+
+
 };
 
 // move function
 function move() {
-
-}
-/* function move() {
-  currentPos = camCoords.geometry.coordinates[routeIndex];
-  nextPos = setPositions(wayPointIndex + 1);
-
-  console.log(camCoords.geometry.coordinates);
-  console.log(wayPoints);
-  console.log(currentPos, nextPos);
-
-  while (nextPos.lat != currentPos[1] ) {
-    currentPos = camCoords.geometry.coordinates[routeIndex];
     moveAlong(globalMap, routeCoords, camCoords);
-    routeIndex++;
-    console.log("navigate");
-  }
-  wayPointIndex++;
 }
-
-function setPositions(index) {
-  return { lat: wayPoints[index].lat, lon: wayPoints[index].lon };
-} */
 
 /* ------------------------------------------
 Helper functions for camera and movement 
@@ -192,5 +185,18 @@ img {
   bottom: 5%;
   left: 30%;
   z-index: 1;
+}
+
+button {
+  position: fixed;
+  bottom: 2%;
+  left: 32%;
+  z-index: 1;
+  padding: 2.5%;
+  border: white solid 2px;
+  border-radius: 2px;
+  color: white;
+  background-color:black;
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
 }
 </style>

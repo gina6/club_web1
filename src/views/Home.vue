@@ -1,10 +1,15 @@
 <template>
   <div class="home">
     <!-- <button v-on:click="toggle('inseli', 1)">INSELI</button> -->
-    <Start  v-show="showStart" />
+    <Start v-show="showStart" />
     <Map v-show="showMap" class="map" />
 
-    <div id="array-rendering" v-show="inseli">
+    <button v-on:click="toggle(1)">Show Club Info</button>
+    <div
+      id="array-rendering"
+      v-show="showClubInfo"
+      @emitClubInfo="clubInfo($event)"
+    >
       <div v-bind:key="clubs" v-if="clubs.length > 0">
         <Club
           :name="clubs[index].fields.name"
@@ -17,10 +22,10 @@
         />
       </div>
     </div>
-    <div class="overlay"  v-show="showOverlay">
+    <div class="overlay" v-show="showOverlay">
       <Overlay />
     </div>
-    <Button/>
+    <Button />
   </div>
 </template>
 
@@ -28,8 +33,8 @@
 <script>
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
-import Overlay from "@/components/Overlay.vue"
-import Button from "@/components/Button.vue"
+import Overlay from "@/components/Overlay.vue";
+import Button from "@/components/Button.vue";
 import Start from "@/components/Start.vue";
 import contentful from "@/modules/contentful";
 
@@ -44,34 +49,34 @@ export default {
   },
   data() {
     return {
-      showStart: true,
-      showMap: false,
+      showStart: false,
+      showMap: true,
       showOverlay: false,
       clubs: [],
-      inseli: false,
+      showClubInfo: false,
       index: 0,
       showClubButton: false,
     };
   },
   created: async function () {
     this.clubs = await contentful.getClubs();
-
   },
   methods: {
-    toggle: function (message, idx) {
-      console.log(message);
-      if (message == "inseli") {
-        if (this.inseli) {
-          this.inseli = false;
-          this.showMap = true;
-          this.showStart = false;
-          this.index = idx;
-        } else {
-          this.inseli = true;
-          this.showMap = false;
-          this.index = idx;
-        }
+    toggle: function (idx) {
+      if (!this.showClubInfo) {
+        this.showClubInfo = true;
+        this.index = idx;
+        this.showMap = false;
+      } else {
+        this.showClubInfo = false;
+        this.showMap = true;
       }
+    },
+    clubInfo: function (clubIndex) {
+      console.log("show club info");
+      this.showClubInfo = true;
+      this.showMap = false;
+      this.index = clubIndex;
     },
   },
 };
@@ -86,5 +91,14 @@ export default {
 
 #array-rendering {
   background-attachment: fixed;
+}
+
+button {
+  padding: 2.5%;
+  border: white solid 2px;
+  border-radius: 2px;
+  color: white;
+  background-color: black;
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
 }
 </style>
