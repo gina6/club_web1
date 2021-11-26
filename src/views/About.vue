@@ -1,7 +1,7 @@
 <template>
 <div>
   <div id="container">
-    <img class="About1" src="../assets/about_pagetitle.svg" alt="About" />
+    <img class="About1" src="@/assets/about_pagetitle.svg" alt="About" />
     <div class="info">
       <h2>CREATORS</h2>
       <ul>
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div id="photo">
-    <img class="groupphoto" src="../assets/Groupphoto.jpg" alt="Groupphoto" />
+    <img class="groupphoto" src="@/assets/Groupphoto.jpg" alt="Groupphoto" />
   </div>
   </div>
 </template>
