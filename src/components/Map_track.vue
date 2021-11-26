@@ -1,6 +1,7 @@
 <template>
   <div class="map">
-    <img src="../assets/NavArrow.svg" v-on:click="navigate('navigate')" alt="">
+    <img src="../assets/NavArrow.svg" v-on:click="navigate()" alt="" />
+    <button v-show="showButton" @click="emitClubInfo(clubIndex)">Show Information</button>
     <div ref="container" class="map"></div>
   </div>
 </template>
@@ -11,19 +12,13 @@ import getCoordinatesFromGpxFile from "@/modules/gpx-utilities.js";
 import contentful from "@/modules/contentful.js";
 import * as turf from "@turf/turf";
 
-//const ANIMATION_DURATION = 100000;
 const CAMERA_ALTITUDE = 600;
-const STEP_LENGTH = 0.01;
+const STEP_LENGTH = 0.02;
 const CAMERA_DISTANCE_BACK = 5 * STEP_LENGTH;
 let routeCoords;
 let camCoords;
 let distance = 0;
 let globalMap;
-let currentIndex;
-let currentPos = {};
-let nextPos = {};
-let wayPoints;
-let logoAssets;
 
 export default {
   name: "Map",
@@ -31,29 +26,49 @@ export default {
   data: function () {
     return {
       clubs: [],
-      logoAssets: [],
+      showClubInfo: false,
+      clubIndex: 1,
+      showButton: false,
+      pos: 0,
+      map: {},
     };
   },
   methods: {
-    navigate: function (message) {
+    navigate: function () {
       move();
-      console.log(message);
+      this.pos++;
+
+      if(this.pos == 11){
+        this.showButton = true;
+        this.clubIndex = 1;
+      } else if (this.pos == 20){
+        this.showButton = true;
+        this.clubIndex = 2;
+      } else{
+        this.showButton = false;
+      }
     },
+    updateMap: function() {
+      this.map.resize();
+    },
+    emitClubInfo(clubIndex){
+      console.log('emit')
+      this.$emit('emitClubInfo', clubIndex);
+    }
   },
+
   created: async function () {
     this.clubs = await contentful.getClubs();
   },
 
   mounted: async function () {
     // set waypoints and initialize Positions
-    wayPoints = await contentful.getWayPoints();
-    logoAssets = await contentful.getLogoAssets();
-    console.log(logoAssets[0].fields.media.fields.file.url);
+    //wayPoints = await contentful.getWayPoints();
 
     // initialize map
     mapboxgl.accessToken =
       "pk.eyJ1IjoiZGlnaXRhbGlkZWF0aW9udmFuZWIiLCJhIjoiY2t2dGk1aGdmMngxbjJ4b3VuenF1ZHBzbiJ9.EQOJw9sGg2zuIg4LX8e2nA";
-    let map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: this.$refs.container,
       style: "mapbox://styles/digitalideationvaneb/ckvwd9hz20or214kiunsr99ht",
       center: [8.310294, 47.050235],
@@ -63,11 +78,11 @@ export default {
     });
 
     // Displaying a GPX track
-    map.on("load", async function () {
+    this.map.on("load", async () => {
       let coordinates = await getCoordinatesFromGpxFile(
         await contentful.getFirstGPXFileUrl()
       );
-      map.addSource("route", {
+      this.map.addSource("route", {
         type: "geojson",
         data: {
           type: "Feature",
@@ -77,7 +92,7 @@ export default {
           },
         },
       });
-      map.addLayer({
+      this.map.addLayer({
         id: "route",
         type: "line",
         source: "route",
@@ -93,43 +108,21 @@ export default {
 
       routeCoords = turf.cleanCoords(turf.lineString(coordinates));
       camCoords = turf.cleanCoords(turf.lineString(coordinates));
-      globalMap = map;
-      setCameraPosition(map, routeCoords, camCoords, distance);
-      window.onkeydown = function (event) {
-        if (event.code == "ArrowUp") {
-          moveAlong(globalMap, routeCoords, camCoords);
-        }
-      };
+      globalMap = this.map;
+      setCameraPosition(this.map, routeCoords, camCoords, distance);
     });
   },
+
+
 };
 
 // move function
 function move() {
-  if (!currentIndex) {
-    currentIndex = 0;
-  }
-
-  let routeIndex = 0;
-  currentPos = routeCoords.geometry.coordinates[routeIndex];
-  nextPos = setPositions(currentIndex + 1);
-
-  console.log(currentPos, nextPos);
-  console.log(routeCoords);
-
-  while (currentPos[0] != nextPos.lon && currentPos[1] != nextPos.lat) {
     moveAlong(globalMap, routeCoords, camCoords);
-    routeIndex++;
-    currentPos = routeCoords.geometry.coordinates[routeIndex];
-  }
-}
-
-function setPositions(index) {
-  return { lat: wayPoints[index].lat, lon: wayPoints[index].lon };
 }
 
 /* ------------------------------------------
-helper functions for camera and movement 
+Helper functions for camera and movement 
 (by Simon from BrumBrum)
 ------------------------------------------*/
 
@@ -196,6 +189,18 @@ img {
   bottom: 5%;
   left: 30%;
   z-index: 1;
+}
 
+button {
+  position: fixed;
+  bottom: 2%;
+  left: 32%;
+  z-index: 2;
+  padding: 2.5%;
+  border: white solid 2px;
+  border-radius: 2px;
+  color: white;
+  background-color:black;
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
 }
 </style>
