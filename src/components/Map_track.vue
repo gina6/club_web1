@@ -38,12 +38,32 @@ export default {
       move();
       this.pos++;
 
+    // work around to show club info button at certain point
+    // counts navigation button presses
       if(this.pos == 11){
+        // inseli
         this.showButton = true;
         this.clubIndex = 1;
-      } else if (this.pos == 20){
+      } else if (this.pos >= 19 && this.pos <= 23){
+        // nectar
+        this.showButton = true;
+        this.clubIndex = 5;
+      } else if(this.pos >= 37 && this.pos <= 38){
+        // roadhouse
         this.showButton = true;
         this.clubIndex = 2;
+      } else if(this.pos >= 40 && this.pos <= 42){
+        // schaf
+        this.showButton = true;
+        this.clubIndex = 3;
+      } else if(this.pos >= 44 && this.pos <= 46){
+        // max
+        this.showButton = true;
+        this.clubIndex = 4;
+      } else if(this.pos >= 50 && this.pos <= 55){
+        // rok
+        this.showButton = true;
+        this.clubIndex = 6;
       } else{
         this.showButton = false;
       }
@@ -75,6 +95,7 @@ export default {
       zoom: 20,
       interactive: false,
       pitch: 85,
+      bearing: 90,
     });
 
     // Displaying a GPX track
