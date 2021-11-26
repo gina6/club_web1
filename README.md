@@ -2,17 +2,7 @@
 We built an interactive map for you to explore the nightlife in Lucerne.
 (Mobile view is recommended)
 
-## Team
-### Gruppenname: 
-cLUb (Club Tour)
-
-### Mitglieder:
-Michelle Egli
-Vanessa Buchmann
-Giuliana Costa
-Gina Fontana
-
-## Links
+## View on
 
 ### Github
 https://github.com/gina6/club_web1
@@ -20,6 +10,17 @@ https://github.com/gina6/club_web1
 ### Website (Netlify)
 https://web1-club.netlify.app/#/
 
+## Team
+### Grouname
+cLUb (Club Tour)
+
+### Members
+Michelle Egli (Design)
+Vanessa Buchmann (Design)
+Giuliana Costa (IT)
+Gina Fontana (IT)
+
+---
 
 ## Local project setup 
 ```
