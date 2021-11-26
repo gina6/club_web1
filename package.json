@@ -17,7 +17,8 @@
     "vue": "^3.2.22",
     "vue-fixed-header": "^3.2.15",
     "vue-router": "^4.0.12",
-    "vuejs-overlay": "^0.0.28"
+    "vuejs-overlay": "^0.0.28",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
