@@ -64,12 +64,6 @@ export default {
     this.clubs = await contentful.getClubs();
   },
   methods: {
-    toggle: function (idx) {
-      this.showClubInfo = true;
-      this.index = idx;
-      this.showMap = false;
-      this.hideClubButton = true;
-    },
     clubInfo: function (clubIndex) {
       console.log("show club info");
       this.showClubInfo = true;
