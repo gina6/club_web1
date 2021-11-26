@@ -1,5 +1,6 @@
 <template>
-  <div id="gradient">
+ <Map v-show="showMap" class="map" />
+  <div id="gradient" v-show="showStart">
     <div id="container">
       <img src="../assets/03_cLUb_avatar_Hugo.png" alt="Hugo" id="hugo" />
       <h2>I’m thirsty... We should get us a drink!</h2>
@@ -14,10 +15,22 @@
 </template>
 
 <script>
+import Map from "@/components/Map_track.vue";
 export default {
+  name: "Start",
+  components: {
+    Map,
+  },
+  data() {
+    return {
+      showStart: true,
+      showMap: false,
+    };
+  },
   methods: {
-    next: function () {
-      alert("next");
+    next() {
+      this.showMap = true;
+      this.showStart = false;
     },
   },
 };
