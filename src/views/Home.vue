@@ -1,10 +1,25 @@
 <template>
   <div class="home">
-    <!-- <button v-on:click="toggle('inseli', 1)">INSELI</button> -->
-    <Start  v-show="showStart" />
-    <Map v-show="showMap" class="map" />
+    <div v-show="showStart">
+      <Start />
+      <img
+        src="../assets/Arrow_next.svg"
+        v-on:click="next()"
+        alt=""
+        id="arrowNext"
+      />
+    </div>
+    <Map ref="map" v-show="showMap" class="map" />
 
-    <div id="array-rendering" v-show="inseli">
+    <button id="clubInfoBtn" v-on:click="toggle(1)" v-show="showClubButton">
+      Show Club Info
+    </button>
+
+    <div
+      id="array-rendering"
+      v-show="showClubInfo"
+      @emitClubInfo="clubInfo($event)"
+    >
       <div v-bind:key="clubs" v-if="clubs.length > 0">
         <Club
           :name="clubs[index].fields.name"
@@ -16,9 +31,9 @@
           :insider="clubs[index].fields.insider"
         />
       </div>
-    </div>
-    <div class="overlay"  v-show="showOverlay">
-      <Overlay />
+      <button id="clubInfoBtn" v-on:click="hide()" v-show="hideClubButton">
+        Hide Club Info
+      </button>
     </div>
   </div>
 </template>
@@ -27,7 +42,6 @@
 <script>
 import Map from "@/components/Map_track.vue";
 import Club from "@/components/Club.vue";
-import Overlay from "@/components/Overlay.vue";
 import Start from "@/components/Start.vue";
 import contentful from "@/modules/contentful";
 
@@ -36,7 +50,6 @@ export default {
   components: {
     Map,
     Club,
-    Overlay,
     Start,
   },
   data() {
@@ -45,29 +58,42 @@ export default {
       showMap: false,
       showOverlay: false,
       clubs: [],
-      inseli: false,
+      showClubInfo: false,
       index: 0,
+      showClubButton: false,
+      hideClubButton: false,
     };
   },
   created: async function () {
     this.clubs = await contentful.getClubs();
-
   },
   methods: {
-    toggle: function (message, idx) {
-      console.log(message);
-      if (message == "inseli") {
-        if (this.inseli) {
-          this.inseli = false;
-          this.showMap = true;
-          this.showStart = false;
-          this.index = idx;
-        } else {
-          this.inseli = true;
-          this.showMap = false;
-          this.index = idx;
-        }
-      }
+    toggle: function (idx) {
+      this.showClubInfo = true;
+      this.index = idx;
+      this.showMap = false;
+      this.hideClubButton = true;
+      this.showClubButton = false;
+    },
+    clubInfo: function (clubIndex) {
+      console.log("show club info");
+      this.showClubInfo = true;
+      this.showMap = false;
+      this.index = clubIndex;
+    },
+    next: function () {
+      this.showStart = false;
+      this.showMap = true;
+      this.showClubButton = true;
+      setTimeout(1000, function () {
+        this.$refs.map.updateMap();
+      });
+    },
+    hide: function () {
+      this.showClubInfo = false;
+      this.showMap = true;
+      this.showClubButton = true;
+      this.hideClubButton = false;
     },
   },
 };
@@ -82,5 +108,26 @@ export default {
 
 #array-rendering {
   background-attachment: fixed;
+}
+
+button {
+  padding: 2.5%;
+  border: white solid 2px;
+  border-radius: 2px;
+  color: white;
+  background-color: black;
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
+}
+
+#arrowNext {
+  height: 4vh;
+  width: auto;
+  position: fixed;
+  bottom: 5%;
+  right: 10%;
+}
+
+#clubInfoBtn {
+  z-index: 3;
 }
 </style>
