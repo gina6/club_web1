@@ -1,38 +1,15 @@
 <template>
- <Map v-show="showMap" class="map" />
-  <div id="gradient" v-show="showStart">
+  <div id="gradient">
     <div id="container">
       <img src="../assets/03_cLUb_avatar_Hugo.png" alt="Hugo" id="hugo" />
       <h2>I’m thirsty... We should get us a drink!</h2>
-      <img
-        src="../assets/Arrow_next.svg"
-        v-on:click="next()"
-        alt=""
-        id="arrowNext"
-      />
     </div>
   </div>
 </template>
 
 <script>
-import Map from "@/components/Map_track.vue";
 export default {
   name: "Start",
-  components: {
-    Map,
-  },
-  data() {
-    return {
-      showStart: true,
-      showMap: false,
-    };
-  },
-  methods: {
-    next() {
-      this.showMap = true;
-      this.showStart = false;
-    },
-  },
 };
 </script>
 
@@ -48,14 +25,6 @@ export default {
 #hugo {
   height: 80vh;
   width: auto;
-}
-
-#arrowNext {
-  height: 4vh;
-  width: auto;
-  position: fixed;
-  bottom: 5%;
-  right: 10%;
 }
 
 h2 {

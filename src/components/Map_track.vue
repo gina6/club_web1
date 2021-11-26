@@ -30,6 +30,7 @@ export default {
       clubIndex: 1,
       showButton: false,
       pos: 0,
+      map: {},
     };
   },
   methods: {
@@ -46,13 +47,16 @@ export default {
       } else{
         this.showButton = false;
       }
-
+    },
+    updateMap: function() {
+      this.map.resize();
     },
     emitClubInfo(clubIndex){
       console.log('emit')
       this.$emit('emitClubInfo', clubIndex);
     }
   },
+
   created: async function () {
     this.clubs = await contentful.getClubs();
   },
@@ -64,7 +68,7 @@ export default {
     // initialize map
     mapboxgl.accessToken =
       "pk.eyJ1IjoiZGlnaXRhbGlkZWF0aW9udmFuZWIiLCJhIjoiY2t2dGk1aGdmMngxbjJ4b3VuenF1ZHBzbiJ9.EQOJw9sGg2zuIg4LX8e2nA";
-    let map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: this.$refs.container,
       style: "mapbox://styles/digitalideationvaneb/ckvwd9hz20or214kiunsr99ht",
       center: [8.310294, 47.050235],
@@ -74,11 +78,11 @@ export default {
     });
 
     // Displaying a GPX track
-    map.on("load", async function () {
+    this.map.on("load", async () => {
       let coordinates = await getCoordinatesFromGpxFile(
         await contentful.getFirstGPXFileUrl()
       );
-      map.addSource("route", {
+      this.map.addSource("route", {
         type: "geojson",
         data: {
           type: "Feature",
@@ -88,7 +92,7 @@ export default {
           },
         },
       });
-      map.addLayer({
+      this.map.addLayer({
         id: "route",
         type: "line",
         source: "route",
@@ -104,8 +108,8 @@ export default {
 
       routeCoords = turf.cleanCoords(turf.lineString(coordinates));
       camCoords = turf.cleanCoords(turf.lineString(coordinates));
-      globalMap = map;
-      setCameraPosition(map, routeCoords, camCoords, distance);
+      globalMap = this.map;
+      setCameraPosition(this.map, routeCoords, camCoords, distance);
     });
   },
 
@@ -191,7 +195,7 @@ button {
   position: fixed;
   bottom: 2%;
   left: 32%;
-  z-index: 1;
+  z-index: 2;
   padding: 2.5%;
   border: white solid 2px;
   border-radius: 2px;
