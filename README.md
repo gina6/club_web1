@@ -11,7 +11,7 @@ https://github.com/gina6/club_web1
 https://web1-club.netlify.app/#/
 
 ## Team
-### Grouname
+### Groupname
 cLUb (Club Tour)
 
 ### Members
